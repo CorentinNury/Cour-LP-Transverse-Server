@@ -8,12 +8,34 @@ const typeDefs = gql`
     title: String
     author: String
   }
+ type User {
+   name: String 
+   surname: String
+   dateOfBirth: String
+   friends: [User]
+   project: [Project]
+ }
+ type Task {
+  name: String 
+  duration: String
+  priority: String
+  asignee: [User]
+  
+}
+type Project {
+  name: String 
+  creator: String
+  task: [Task]
+}
 
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
   # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
     books: [Book]
+    user: [User]
+    project: [Project]
+    task: [Task]
   }
 `;
 
@@ -28,6 +50,44 @@ const books = [
       author: 'Michael Crichton',
     },
   ];
+  const task = [
+    {
+      name: 'toto', 
+      duration: '10',
+      priority: 'hight',
+      
+    },
+    {
+      name: 'titi', 
+      duration: '1',
+      priority: 'low',
+    },
+  ];
+
+  const project = [
+    {
+      name: 'My project 1',
+      creator: 'Moi',
+      
+    },
+    {
+      name: 'Your project 2',
+      creator: 'you',
+    },
+  ];
+
+  const user = [
+    {
+      name: 'Harry ',
+      surname: 'Potter',
+      dateOfBirth: '01/01/2000',
+    },
+    {
+      title: 'Jurassic Park',
+      author: 'Michael Crichton',
+    },
+  ];
+
 
 
 // Resolvers define the technique for fetching the types defined in the
@@ -35,6 +95,9 @@ const books = [
 const resolvers = {
     Query: {
       books: () => books,
+      user: () => user,
+      project: () => project,
+      task: () => task,
     },
   };
 
