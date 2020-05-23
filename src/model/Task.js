@@ -5,7 +5,7 @@ const taskSchema = new Schema({
     name: String,
     description: String,
     duration: String,
-    status: {Number, default: 0},
+    priority: Number
 }, {collection:'Task'});
 
 

@@ -7,7 +7,7 @@ const userSchema = new Schema({
     name: String,
     creator: String,
     
-  task: { type: Schema.Types.ObjectId, ref: 'Task' },
+  tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
 }, {collection:'User'});
 
 

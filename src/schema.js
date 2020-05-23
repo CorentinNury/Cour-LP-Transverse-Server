@@ -1,4 +1,5 @@
 import { merge } from 'lodash';
+import { makeExecutableSchema } from 'graphql-tools';
 
 // User typedefs and resolvers
 import {
@@ -14,7 +15,8 @@ import {
 import {
   typeDef as Task,
   resolvers as taskResolvers,
-} from './schema/Tasks.schema';
+} from './schema/Task.schema';
+
 
 // Add more schema and model here
 //....
