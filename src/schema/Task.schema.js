@@ -65,7 +65,7 @@ export const resolvers = {
   Mutation: {
     createTask: async (root, args, context, info) => {
       await Task.create(args);
-      return Task.name;
+      return true;
     },
     createTaskWithInput: async (root, { input }, context, info) => {
       //input.password = await bcrypt.hash(input.password, 10);
