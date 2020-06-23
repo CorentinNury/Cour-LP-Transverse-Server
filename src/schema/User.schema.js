@@ -71,7 +71,7 @@ export const resolvers = {
     login: async (root, args , context, info) => {
       const user = await User.findOne({name: args.name})
       if(!user){
-          ;
+          return null;
       }
       if(await bcrypt.compareSync(args.password,user.password)){
         return user;

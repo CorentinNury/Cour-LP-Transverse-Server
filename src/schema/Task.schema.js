@@ -87,7 +87,11 @@ export const resolvers = {
       return Task.create(input);
     },
     deleteTask: async (root, { _id }, context, info) => {
-      return Task.remove({ _id });
+     if(await Task.remove({ _id }))
+     {
+       return true;
+     }
+      
     },
     updateTask: async (root, { _id, input }) => {
       return Task.findByIdAndUpdate(_id, input, { new: true });
