@@ -1,5 +1,6 @@
 // task.js
 import {Task} from "../model/Task";
+import {Project} from "../model/Project";
 //Required for dummy data
 const dummy = require('mongoose-dummy');
 const ignoredFields = ['_id','created_at', '__v', /detail.*_info/];
@@ -11,14 +12,14 @@ export const typeDef = `
     name: String 
     description: String
     duration: String
-    priority: Int  
+    priority: String  
   }
 
   input TaskInput{
     name: String
     description: String
     duration: String
-    priority: Int
+    priority: String
   }
 
 
@@ -29,7 +30,8 @@ export const typeDef = `
   }
 
   extend type Mutation {
-    createTask(name: String!,description: String!,duration: String!,priority: Int!): Boolean
+    createTask(name: String!,description: String!,duration: String!,priority: String!): Boolean
+    addTaskToProjects(_id: ID!,input: TaskInput!): Boolean
     createTaskWithInput(input: TaskInput!): Task
     deleteTask(_id: ID!): Boolean
     updateTask(_id: ID!,input: TaskInput!): Task
@@ -63,8 +65,21 @@ export const resolvers = {
     },
   },
   Mutation: {
-    createTask: async (root, args, context, info) => {
+      createTask: async (root, args, context, info) => {
       await Task.create(args);
+      return true;
+    },
+    addTaskToProjects: async (root, { _id, input }) => {
+      var task = await Task.create(input);
+      console.log(_id)
+      var project = await Project.findByIdAndUpdate(_id,{
+        $push: {
+          tasks: task
+        }
+      })
+      console.log(project)
+      
+      project.save();
       return true;
     },
     createTaskWithInput: async (root, { input }, context, info) => {

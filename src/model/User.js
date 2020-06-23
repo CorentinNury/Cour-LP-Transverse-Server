@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     name: String,
     creator: String,
+    password: String,
     
   tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
 }, {collection:'User'});

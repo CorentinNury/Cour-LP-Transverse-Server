@@ -27,7 +27,7 @@ export const typeDef = `
   }
 
   extend type Mutation {
-    createProject(name: String!,description: String!, tasks: TaskInput!): Boolean
+    createProject(name: String!,description: String!): Boolean
     createProjectWithInput(input: ProjectInput!): Project
     deleteProject(_id: ID!): Boolean
     updateProject(_id: ID!,input: ProjectInput!): Project
@@ -59,7 +59,8 @@ export const resolvers = {
       return Project.create(input);
     },
     deleteProject: async (root, { _id }, context, info) => {
-      return Project.remove({ _id });
+      await Project.remove({ _id });
+      return true;
     },
     updateProject: async (root, { _id, input }) => {
       return Project.findByIdAndUpdate(_id, input, { new: true });
