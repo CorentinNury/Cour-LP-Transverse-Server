@@ -43,7 +43,7 @@ export const resolvers = {
     },
     projects: async () => {
       var test =  await Project.find().populate('tasks');
-      console.log(test)
+      
       return test;
     },
     project: async (root, { _id }, context, info) => {
@@ -72,8 +72,7 @@ export const resolvers = {
           tasks: task
         }
       })
-      console.log(task)
-      console.log(project)
+     
       project.save();
       return true;
     },

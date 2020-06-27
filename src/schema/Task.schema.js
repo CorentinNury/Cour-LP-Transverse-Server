@@ -70,14 +70,14 @@ export const resolvers = {
       return true;
     },
     addTaskToProjects: async (root, { _id, input }) => {
+     
+      
       var task = await Task.create(input);
-      console.log(_id)
       var project = await Project.findByIdAndUpdate(_id,{
         $push: {
           tasks: task
         }
       })
-      console.log(project)
       
       project.save();
       return true;

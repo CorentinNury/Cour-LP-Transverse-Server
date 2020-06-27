@@ -2,6 +2,7 @@
 import {User} from "../model/User";
 //Required for dummy data
 const bcrypt = require('bcrypt');
+//const jwt = require('jsonwebtoken');
 const dummy = require('mongoose-dummy');
 const ignoredFields = ['_id','created_at', '__v', /detail.*_info/];
 
